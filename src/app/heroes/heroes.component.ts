@@ -34,25 +34,8 @@ export class HeroesComponent implements OnInit {
   }
 
   delete(hero: Hero): void {
-    const index = this.heroes.indexOf(hero);
-    var i = 0;
-    this.heroService.deleteHero(hero)
-      .subscribe(
-        result => {
-          i++;
-          // Caso seja a segunda chamada (os testes de comparação de tipos estão falhando),
-          // remove o item
-          if (i === 2) {
-            if (index > -1) {
-              this.heroes.splice(index);
-            }
-            else {
-              console.log(`Hero ${hero.name} cannot be removed from array`);
-            }
-  
-          }
-        
-      });
+    this.heroes = this.heroes.filter(h => h !== hero);
+    this.heroService.deleteHero(hero).subscribe();
   }
 
 }
